@@ -1,6 +1,6 @@
 import { EventDispatcher } from './events/EventDispatcher';
 import { Plugin } from './plugins/Plugin';
-import type { DeveloperStack } from './plugins/DeveloperStack';
+import { DeveloperStack } from './plugins/DeveloperStack';
 export interface Options {
     [key: string]: any;
 }
@@ -116,6 +116,14 @@ interface Viewer3d extends EventDispatcher<EventArgMap> {
      */
     setClearColor(color: string): void;
     /**
+     * Toggles the primary pointer action from orbiting to panning.
+     *
+     * By default left mouse (or single touch) is orbit, whilst right mouse (or the obscure triple touch) is pan.
+     *
+     * Calling this method without providing an argument will toggle between the two schemes.
+     */
+    reversePointerControlScheme(reverse?: boolean): void;
+    /**
      * Instructs the viewer to stop presenting the current scene (if there is
      * one), and instead download and display a new scene, as defined by the
      * provided sceneOptions.
@@ -129,9 +137,9 @@ interface Viewer3d extends EventDispatcher<EventArgMap> {
 }
 declare class Viewer3d {
     constructor(container: HTMLElement, viewerOptions?: Options);
-    static get VERSION_MAJOR(): number;
-    static get VERSION_MINOR(): number;
-    static get VERSION_REVISION(): number;
+    static VERSION_MAJOR: number;
+    static VERSION_MINOR: number;
+    static VERSION_REVISION: number;
     static viewerUrl: {
         (): string;
         (snapId: string, modelId: string): string;

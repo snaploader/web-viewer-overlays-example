@@ -2,6 +2,8 @@
 
 This is a simple example demonstrating how custom DOM elements can be attached to nodes within a Snaploader scene.
 
+The example can be viewed [here](https://snaploader.github.io/web-viewer-overlays-example/).
+
 We have included TypeScript types with inline documentation for our public web viewer APIs, and the included `application.js` was generated from `application.ts`.
 
 ## Dependencies

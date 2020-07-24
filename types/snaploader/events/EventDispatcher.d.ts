@@ -1,5 +1,5 @@
 declare type EventListener<A extends any[]> = (...eventArguments: A) => (boolean | undefined | void);
-declare type EventRemover = () => void;
+export declare type EventRemover = () => void;
 export interface EventDispatcher<T extends {
     [P in keyof T]: any[];
 }> {

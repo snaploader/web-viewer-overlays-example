@@ -1,40 +1,47 @@
 const NODES = {
 	VAV_1: {
-		displayName: "VAV-1",
+		displayName: 'VAV-1',
 		height: 1.5,
-		color: "#4d1",
 	},
 	VAV_2: {
-		displayName: "VAV-2",
+		displayName: 'VAV-2',
 		height: 1.5,
-		color: "#4d1",
 	},
 	VAV_3: {
-		displayName: "VAV-3",
+		displayName: 'VAV-3',
 		height: 1.5,
-		color: "#4d1",
 	},
-	AHU_1_Sensor: {
-		displayName: "AHU-1 Sensor",
-		height: 1.75,
-		color: "#d1d",
+	VAV_4: {
+		displayName: 'VAV-4',
+		height: 1.5,
 	},
-	AHU_2_Sensor: {
-		displayName: "AHU-2 Sensor",
-		height: 1.75,
-		color: "#d1d",
+	VAV_5: {
+		displayName: 'VAV-5',
+		height: 1.5,
 	},
-	AHU_3_Sensor: {
-		displayName: "AHU-3 Sensor",
-		height: 1.75,
-		color: "#d1d",
-	}
+	VAV_6: {
+		displayName: 'VAV-6',
+		height: 1.5,
+	},
+	VAV_7: {
+		displayName: 'VAV-7',
+		height: 1.5,
+	},
+	VAV_8: {
+		displayName: 'VAV-8',
+		height: 1.5,
+	},
+	VAV_9: {
+		displayName: 'VAV-9',
+		height: 1.5,
+	},
 }
+
 
 const SCENE_OPTIONS = {
 	sceneSnapId: '5b8aa75a-5322-49b9-947e-2dad226acda1',
 	sceneModelId: '1d0176bc-ba87-4fee-9c35-bf2ee1dc4386'
-};
+}
 
 const container = document.getElementById('viewer3d')
 const viewer = new snaploader.Viewer3d(container!, SCENE_OPTIONS)
@@ -54,12 +61,33 @@ viewer.addListener('sceneLoaded', () => {
 
 	const sceneScale = viewer.sceneScale!
 
+	const developerStack = viewer.getPlugin('developerStack')
+	const nodeVisibilityMap: {[nodeName: string]: boolean} = {}
+
 	for (const nodeName of Object.keys(NODES)) {
 		const nodeConfig = NODES[nodeName as keyof typeof NODES]
 
 		const displayNameSpan = document.createElement('span')
 		displayNameSpan.innerText = nodeConfig.displayName
-		displayNameSpan.style.color = nodeConfig.color
+		displayNameSpan.style.display = 'inline-block'
+		displayNameSpan.style.boxShadow = 'rgba(0, 0, 0, 0.25) 2px 2px'
+		displayNameSpan.style.borderRadius = '4px'
+		displayNameSpan.style.background = 'rgba(255, 255, 255, 0.9)'
+		displayNameSpan.style.padding = '0 10px'
+		displayNameSpan.style.fontSize = '14px'
+		displayNameSpan.style.lineHeight = '30px'
+		displayNameSpan.style.height = '26px'
+		displayNameSpan.style.color = '#4d1'
+		displayNameSpan.style.fontWeight = '100'
+
+		nodeVisibilityMap[nodeName] = true
+
+		displayNameSpan.addEventListener('click', () => {
+			const visibility = !nodeVisibilityMap[nodeName]
+			nodeVisibilityMap[nodeName] = visibility
+			developerStack?.setNodeVisibility(nodeName, visibility)
+			displayNameSpan.style.color = visibility ? '#2c1' : '#c10'
+		})
 
 		// We add a DOM element and associate it with a node in the scene, via
 		// the nodes name. Additionally, we specify an (optional) offset from

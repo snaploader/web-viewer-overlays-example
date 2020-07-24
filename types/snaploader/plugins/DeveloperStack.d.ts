@@ -22,4 +22,14 @@ interface Options {
 
 export interface DeveloperStack extends Plugin, EventDispatcher<EventArgMap> {
 	patchOptions(option: Options): void
+
+	/**
+	 * Sets an interactive node's visibility i.e. hides/shows a node.
+	 *
+	 * Returns false if no interactive node corresponding with nodeName exists in the current scene, otherwise true.
+	 *
+	 * @param nodeName
+	 * @param visible
+	 */
+	setNodeVisibility(nodeName: string, visible: boolean): boolean
 }
